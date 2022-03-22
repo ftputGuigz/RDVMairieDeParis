@@ -9,8 +9,8 @@ from webbrowser import BaseBrowser
 from datetime import date
 from sys import platform
 import time
-import threading
 import sys
+from signal import signal, SIGINT
 from notifypy import Notify
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -62,7 +62,7 @@ def notifyMe():
 	MacOS is managed for now """
 
 	notification = Notify()
-	notification.title = "MairieDeParrigi.py"
+	notification.title = "RDVMairieDeParis.py"
 	notification.message = "Form is waiting for your final input !"
 	notification.audio = "./Glass.wav"
 
@@ -71,11 +71,11 @@ def notifyMe():
 def printparseError():
 	""" This Parse error appears if error is detected in the program args """
 
-	print("Wrong Number of arguments.")
-	print("Syntax is : python3 MairieDeParrigi.py <MairieX> <DateofAppointment> <HourofAppointment>")
-	print("X is a number between 1 and 20")
-	print("DateofAppointment is a date in the 0-padded format JJ/MM/YY like so 08/12/22 or 21/09/22")
-	print("Hour of Appointment is the wanted hour of appointment in the format HH:MM")
+	print("Mauvais nombre d'arguments.")
+	print("La syntaxe est la suivante : python3 RDVMairieDeParis.py <Code Postal> <Date de RDV souhaitée> <Heure de RDV souhaitée>")
+	print("Les codes postaux gérés sont ceux compris entre 75001 et 75020. Exemple: 75014")
+	print("La Date de RDV est au format JJ/MM/YY. Exemple: 08/12/2022 ou 21/09/2022")
+	print("L'heure du RDV est au format HH:MM. Exemple: 8:54 ou 17:30")
 
 
 def parseArgs(argc, args):
@@ -128,12 +128,14 @@ def parseArgs(argc, args):
 
 		if elem is args[2]:
 			splited = elem.partition(":")
-			if not splited[1] and not splited[2] or int(splited[0]) > 19 or int(splited[0]) < 8 or int(splited[2]) < 0 or int(splited[2]) > 59:
-				print("La syntaxe est du type <HH:MM> Exemple : '08:45' ou '17:30'\nEssayez encore.")
+			if not splited[1] and not splited[2] or int(splited[0]) > 19 or int(splited[0]) < 8 \
+			or int(splited[2]) < 0 or int(splited[2]) > 59 \
+			or (int(splited[0]) == 19 and int(splited[2]) > 0) \
+			or (int(splited[0]) == 8 and int(splited[2]) < 30):
+				print("La syntaxe est du type <HH:MM>. Choisissez un créneau entre 8h30 et 19h00. Exemple : '08:45' ou '17:30'.")
 				return None
 			else:
 				new_list.append((splited[0], splited[2]))
-
 	return new_list
 
 def getKey(nb):
@@ -238,21 +240,20 @@ def bookWantedHour(args):
 		startMins = quarterFix(int(args[2][1]))
 		Hour = startHour
 		Mins = startMins
-		while Hour != 20:
-			while Mins != 60:
-				hour_url = 'T' + (str(Hour)).rjust(2, '0') + ':' + str(Mins).rjust(2, '0')
-				tmp_url = main_url + hour_url + trailer_url
-				print(tmp_url)
-				if bookSlot(tmp_url, False):
-					return
-				Mins += 15
-				if Hour == 19 and Mins == 15:
-					break
-				elif Hour == startHour + 1 and Mins == startMins:
-					break
-			if Hour == startHour + 1 and Mins == startMins:
-					break
-			Hour += 1
+		for i in range(4):
+			hour_url = 'T' + (str(Hour)).rjust(2, '0') + ':' + str(Mins).rjust(2, '0')
+			tmp_url = main_url + hour_url + trailer_url
+			print(tmp_url)
+			if bookSlot(tmp_url, False):
+				return
+			Mins += 15
+			if Mins == 60:
+				Hour += 1
+				Mins = 0
+			if Hour == 19 and Mins == 15:
+				break
+			elif Hour == startHour + 1 and Mins == startMins:
+				break
 	return
 		
 
@@ -268,11 +269,13 @@ def	bookWantedDay(args):
 	while True:
 		Hour = 8
 		while Hour != 20:
-			Mins = 30
+			if Hour == 8:
+				Mins = 30
+			else:
+				Mins = 0
 			while Mins != 60:
 				hour_url = 'T' + (str(Hour)).rjust(2, '0') + ':' + str(Mins).rjust(2, '0')
 				tmp_url = main_url + hour_url + trailer_url
-				print(tmp_url)
 				if bookSlot(tmp_url, False):
 					return
 				Mins += 15
@@ -313,9 +316,16 @@ def getInput():
 				print("Je n'ai pas compris votre réponse.")
 	return new_dico
 
+def sigint_handler():
+	print("Fin du Programme. A bientot en Mairie !")
+	exit(0)
+
 if __name__ == "__main__":
+
+	signal(SIGINT, sigint_handler)
+
 	argc = len(sys.argv) - 1
-	if argc > 3 and argc < 0:
+	if argc > 3:
 		printparseError()
 	else:
 		args = parseArgs(argc, sys.argv[1:])
@@ -336,4 +346,4 @@ if __name__ == "__main__":
 		bookWantedDay(args)
 	else:
 		bookWantedHour(args)
-	exit()
+	exit(0)
