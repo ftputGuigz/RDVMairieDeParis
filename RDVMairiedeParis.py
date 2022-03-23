@@ -318,7 +318,7 @@ def getInput():
 				print("Je n'ai pas compris votre réponse.")
 	return new_dico
 
-def sigint_handler():
+def sigint_handler(sig, frame):
 	print("Fin du Programme. A bientot en Mairie !")
 	exit(0)
 
