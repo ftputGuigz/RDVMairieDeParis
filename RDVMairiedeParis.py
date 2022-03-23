@@ -143,17 +143,17 @@ def getKey(nb):
 	created earlier on user input """
 
 	if nb == 0:
-		return ("lastname")
+		return ("nom")
 	elif nb == 1:
-		return ("firstname")
+		return ("prenom")
 	elif nb == 2:
 		return ("email")
 	elif nb == 3:
 		return ("email")
 	elif nb == 4:
-		return ("telephone_number")
+		return ("telephone")
 	elif nb == 5:
-		return ("zip_code")
+		return ("code postal")
 
 def fillForm(browser):
 	""" This function fill the fields of a page using XPATH to navigate from 
@@ -194,6 +194,8 @@ def bookAnySlot(arrond, refresh=True):
 def scanMairies():
 	while True:
 		for i in range(len(Mairies)):
+			if (i + 1) is 3 or (i + 1) is 4:
+				continue
 			if bookAnySlot(i + 1, refresh=False):
 				return
 
@@ -294,11 +296,11 @@ def getInput():
 	new_dico = {}
 	
 	while not are_you_happy:
-		new_dico["firstname"] = input("Entrez votre prénom: ").strip()
-		new_dico["lastname"] = input("Entrez votre nom de famille: ").strip()
+		new_dico["prenom"] = input("Entrez votre prénom: ").strip()
+		new_dico["nom"] = input("Entrez votre nom de famille: ").strip()
 		new_dico["email"] = input("Entrez votre e-mail: ").strip()
-		new_dico["telephone_number"] = input("Entrez votre numéro de téléphone (10 chiffres): ").strip()
-		new_dico["zip_code"] = input("Entrez votre code postal: ").strip()
+		new_dico["telephone"] = input("Entrez votre numéro de téléphone (10 chiffres): ").strip()
+		new_dico["code postal"] = input("Entrez votre code postal (Tapez 99999 si vous résidez à l'étranger.) : ").strip()
 		print()
 		""" Imprimer input """
 		for key, word in new_dico.items():
