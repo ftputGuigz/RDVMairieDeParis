@@ -16,7 +16,7 @@ Vous avez un rendez-vous 🤝
 
 Fonctionne sur **Linux** 🐧 & **MacOS** 🍏
 
-##Installation
+## Installation
 
 ##### 1. Installation Automatique
 Lancez le script `./install_script.sh`
