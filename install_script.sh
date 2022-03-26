@@ -7,6 +7,12 @@ echo -e "Installing chromedriver and \033[32mpython\033[0m libraries needed 🐍
 
 sleep 2
 
+python3=$(which python3)
+if [ -z $python3 ]; then
+	echo "Please install Python3 🐍 before launching this script."
+	exit 1
+fi
+
 if [ $system = "Darwin" ]; then
 	brew=$(which brew)
 	if [ ! -z $brew ]; then
