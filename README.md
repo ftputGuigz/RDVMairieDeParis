@@ -1,10 +1,10 @@
 
-#RDVMairieDeParis 
+# RDVMairieDeParis 
 
-##ante-scriptum 🇬🇧 -> 🇫🇷
+## ante-scriptum 🇬🇧 -> 🇫🇷
 This script was made to facilitate slot reservation on https://teleservices.paris.fr/. This is a french website used by french users. Therefore, this README will be in french
 
-##Description
+## Description
 
 Refaire ses papiers d'identité est devenu une tannée. Les créneaux sont rares et s'envolent vite. 
 Reprenez le contrôle et devenez la meilleure version de vous-même grâce à cet outil.
@@ -28,7 +28,7 @@ Lancez le script `./install_script.sh`
 * utilisez votre gestionnaire de paquets (`brew` sur MacOS, `apt`, `pkg`, `pacman`, etc..) pour installer chromium-chomedriver : `sudo apt install chromium-chromedriver` ou `brew install chromedriver`
 * Let's Go !
 
-##Usage
+## Usage
 
 `python3 ./RDVMairiedeParis.py <arrondissement> <jour> <heure>`
 
