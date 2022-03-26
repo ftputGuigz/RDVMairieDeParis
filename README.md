@@ -61,3 +61,5 @@ Le script cherche dans la mairie demandée, au jour demandé jusqu'à ce qu'un c
 `python3 ./RDVMairiedeParis.py <arrondissement> <jour> <heure>`
 
 Le script cherche dans la mairie demandée, au jour demandé, dans l'heure spécifiée jusqu'à ce qu'un créneau se libère.
+
+![] Mairie.gif
