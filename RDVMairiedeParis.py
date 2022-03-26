@@ -32,6 +32,7 @@ White= "\u001b[37;1m"
 
 """ This is the starting point of any HTTP REQUEST """
 calendar_url = "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointment&view=getViewAppointmentCalendar&id_form="
+form_url = "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointment&view=getViewAppointmentForm&id_form="
 
 """ This dictionnary contains all the Mairies-Id as used by the teleservice.paris.fr"""
 Mairies = {
@@ -204,7 +205,7 @@ def bookSlot(url,refresh=True):
 	timer = WebDriverWait(browser, 2)
 	while True:
 		try:
-			timer.until(EC.presence_of_all_elements_located(By.CLASS_NAME, "form-control"))
+			timer.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "form-control")))
 		except Exception:
 			if refresh is False:
 				return 0
@@ -212,6 +213,7 @@ def bookSlot(url,refresh=True):
 		else:
 			fillForm(browser)
 			Notify()
+			return 1
 	return
 
 def quarterFix(minutes):
@@ -233,7 +235,7 @@ def quarterFix(minutes):
 
 def bookWantedHour(args):
 
-	main_url = calendar_url + Mairies[args[0]]
+	main_url = form_url + Mairies[args[0]]
 	date_of_rdv = "&starting_date_time=" + args[1][2] + '-' + args[1][1] + '-' + args[1][0]
 	main_url += date_of_rdv
 	trailer_url = "&modif_date=false&anchor=step3"
@@ -245,7 +247,6 @@ def bookWantedHour(args):
 		for i in range(4):
 			hour_url = 'T' + (str(Hour)).rjust(2, '0') + ':' + str(Mins).rjust(2, '0')
 			tmp_url = main_url + hour_url + trailer_url
-			print(tmp_url)
 			if bookSlot(tmp_url, False):
 				return
 			Mins += 15
@@ -264,7 +265,7 @@ def	bookWantedDay(args):
 	""" This function find a Mairie and a day and iter through all hour of the day until an open slot is found """
 	
 	## FORMAT == https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointment&view=getViewAppointmentCalendar&id_form=35&starting_date_time=2022-03-22T09:00&modif_date=false&anchor=step3 ##
-	main_url = calendar_url + Mairies[args[0]]
+	main_url = form_url + Mairies[args[0]]
 	date_of_rdv = "&starting_date_time=" + args[1][2] + '-' + args[1][1] + '-' + args[1][0]
 	main_url += date_of_rdv
 	trailer_url = "&modif_date=false&anchor=step3"
