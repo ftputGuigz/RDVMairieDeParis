@@ -112,15 +112,22 @@ def parseArgs(argc, args):
 		#improve PARSING OF DATE
 		if elem is args[1]:
 			today = date.today()
-			d3 = today.strftime("%d/%m/%Y")
-			if d3[2:] != elem[2:]:
-				print("Choose an appointment in the current Month and Year Please")
+			d3 = today.strftime("%Y")
+			input_date = elem.rsplit('/')
+			if len(input_date) != 3:
+				print("La date doit etre composée d'1 jour, d'1 mois et d'1 année. Exemple : '28/03/2022', '4/9/2022'")
 				return None
-			elif int(elem[:2]) > 31 or int(elem[:2]) < 1:
-				print("Choose a day between 1 and 31 of this month, in the current Month and Year Please")	
+			if int(input_date[0]) > 31 or int(input_date[0]) < 1:
+				print("Choisissez un jour compris entre le 1 et le 31.")	
+				return None
+			elif int(input_date[1]) > 12 or int(input_date[1]) < 1:
+				print("Choisissez un mois compris entre janvier et Décembre (1 à 12)")
+				return None
+			elif int(input_date[2]) < int(d3):
+				print("N'essayez pas de prendre un RDV dans le passé !")
 				return None
 			else:
-				formated_elem = (elem[:2], elem[3:5], elem[6:])
+				formated_elem = (input_date[0].rjust(2, '0'), input_date[1].rjust(2, '0'), input_date[2])
 				new_list.append(formated_elem)
 			if argc == 2:
 				return new_list
