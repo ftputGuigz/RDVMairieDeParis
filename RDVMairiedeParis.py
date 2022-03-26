@@ -64,7 +64,7 @@ def notifyMe():
 	notification = Notify()
 	notification.title = "RDVMairieDeParis.py"
 	notification.message = "Form is waiting for your final input !"
-	notification.audio = "./Glass.wav"
+	notification.audio = "./medias/Glass.wav"
 
 	notification.send()
 
@@ -80,7 +80,7 @@ def printparseError():
 
 def parseArgs(argc, args):
 	""" This parse the 1 or 3 (for now) args inputed by user """
-	if argc is 0:
+	if argc == 0:
 		return None
 	
 	new_list = []
@@ -102,7 +102,7 @@ def parseArgs(argc, args):
 				return None
 			else:
 				new_list.append(int(elem[3:]))
-			if argc is 1:
+			if argc == 1:
 				return new_list
 			else:
 				continue
@@ -121,7 +121,7 @@ def parseArgs(argc, args):
 			else:
 				formated_elem = (elem[:2], elem[3:5], elem[6:])
 				new_list.append(formated_elem)
-			if argc is 2:
+			if argc == 2:
 				return new_list
 			else:
 				continue
@@ -194,7 +194,7 @@ def bookAnySlot(arrond, refresh=True):
 def scanMairies():
 	while True:
 		for i in range(len(Mairies)):
-			if (i + 1) is 3 or (i + 1) is 4:
+			if (i + 1) == 3 or (i + 1) == 4:
 				continue
 			if bookAnySlot(i + 1, refresh=False):
 				return
@@ -340,11 +340,11 @@ if __name__ == "__main__":
 		ARGS == 3 ---> program look for specified Mairie at specified day, at specified time -+30 min, until it finds a slot
 	"""
 	browser = webdriver.Chrome(options=chrome_options)
-	if argc is 0:
+	if argc == 0:
 		scanMairies()
-	elif argc is 1:	
+	elif argc == 1:	
 		bookAnySlot(args[0])
-	elif argc is 2:
+	elif argc == 2:
 		bookWantedDay(args)
 	else:
 		bookWantedHour(args)

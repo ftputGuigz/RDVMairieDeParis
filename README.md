@@ -62,4 +62,4 @@ Le script cherche dans la mairie demandée, au jour demandé jusqu'à ce qu'un c
 
 Le script cherche dans la mairie demandée, au jour demandé, dans l'heure spécifiée jusqu'à ce qu'un créneau se libère.
 
-![](Mairie.gif)
+![](./medias/Mairie.gif)
