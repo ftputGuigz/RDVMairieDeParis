@@ -24,11 +24,11 @@ on the website, and give back control to the user for CAPTCHA INPUT  """
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
 
-Blue= "\u001b[34;1m"
-Reset= "\u001b[0m"
-Red= "\u001b[31;1m"
-Yellow= "\u001b[33;1m"
-White= "\u001b[37;1m"
+BLUE= "\u001b[34;1m"
+RESET= "\u001b[0m"
+RED= "\u001b[31;1m"
+YELLOW= "\u001b[33;1m"
+WHITE= "\u001b[37;1m"
 
 """ This is the starting point of any HTTP REQUEST """
 calendar_url = "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointment&view=getViewAppointmentCalendar&id_form="
@@ -80,7 +80,7 @@ def printparseError():
 
 
 def parseArgs(argc, args):
-	""" This parse the 1 or 3 (for now) args inputed by user """
+	""" This parse the 1, 2 or 3 args inputed by user """
 	if argc == 0:
 		return None
 	
@@ -108,8 +108,6 @@ def parseArgs(argc, args):
 			else:
 				continue
 
-
-		#improve PARSING OF DATE
 		if elem is args[1]:
 			today = date.today()
 			d3 = today.strftime("%d/%m/%Y")
@@ -311,6 +309,7 @@ def getInput():
 	are_you_happy = False
 	new_dico = {}
 	
+	print(f"RDV {BLUE}Mairie{RESET} {WHITE}de{RESET} {RED}Paris{RESET}")
 	while not are_you_happy:
 		new_dico["prenom"] = input("Entrez votre prénom: ").strip()
 		new_dico["nom"] = input("Entrez votre nom de famille: ").strip()
@@ -335,7 +334,7 @@ def getInput():
 	return new_dico
 
 def sigint_handler(sig, frame):
-	print("Fin du Programme. A bientot en Mairie !")
+	print(f"{YELLOW}Fin du Programme. A bientot en Mairie !{RESET}")
 	exit(0)
 
 if __name__ == "__main__":
