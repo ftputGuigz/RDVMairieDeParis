@@ -112,7 +112,8 @@ def parseArgs(argc, args):
 		#improve PARSING OF DATE
 		if elem is args[1]:
 			today = date.today()
-			d3 = today.strftime("%Y")
+			d3 = today.strftime("%d/%m/%Y")
+			current_date = d3.rsplit('/')
 			input_date = elem.rsplit('/')
 			if len(input_date) != 3:
 				print("La date doit etre composée d'1 jour, d'1 mois et d'1 année. Exemple : '28/03/2022', '4/9/2022'")
@@ -123,9 +124,16 @@ def parseArgs(argc, args):
 			elif int(input_date[1]) > 12 or int(input_date[1]) < 1:
 				print("Choisissez un mois compris entre janvier et Décembre (1 à 12)")
 				return None
-			elif int(input_date[2]) < int(d3):
+			elif int(input_date[2]) < int(current_date[2]):
 				print("N'essayez pas de prendre un RDV dans le passé !")
 				return None
+			elif int(input_date[2]) == int(current_date[2]) and int(input_date[1]) <= int(current_date[1]):
+				if int(input_date[1]) < int(current_date[1]):
+					print("N'essayez pas de prendre un RDV dans le passé !")
+					return None
+				if int(input_date[1]) == int(current_date[1]) and int(input_date[0]) < int(current_date[0]):
+					print("N'essayez pas de prendre un RDV dans le passé !")
+					return None
 			else:
 				formated_elem = (input_date[0].rjust(2, '0'), input_date[1].rjust(2, '0'), input_date[2])
 				new_list.append(formated_elem)
