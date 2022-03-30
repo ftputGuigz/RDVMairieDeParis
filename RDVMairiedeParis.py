@@ -132,9 +132,8 @@ def parseArgs(argc, args):
 				if int(input_date[1]) == int(current_date[1]) and int(input_date[0]) < int(current_date[0]):
 					print("N'essayez pas de prendre un RDV dans le passé !")
 					return None
-			else:
-				formated_elem = (input_date[0].rjust(2, '0'), input_date[1].rjust(2, '0'), input_date[2])
-				new_list.append(formated_elem)
+			formated_elem = (input_date[0].rjust(2, '0'), input_date[1].rjust(2, '0'), input_date[2])
+			new_list.append(formated_elem)
 			if argc == 2:
 				return new_list
 			else:
@@ -353,7 +352,7 @@ if __name__ == "__main__":
 		ARGC == 1 ---> program look for specified Mairie and refresh until it gets a slot
 		ARGC == 2 ---> program look for specified Mairie at specified day, until it finds a slot looping through all hours
 		ARGS == 3 ---> program look for specified Mairie at specified day, at specified time -+30 min, until it finds a slot
-	"""
+	""" 
 	browser = webdriver.Chrome(options=chrome_options)
 	if argc == 0:
 		scanMairies()
