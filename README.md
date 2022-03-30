@@ -6,10 +6,10 @@ This script was made to facilitate slot reservation on https://teleservices.pari
 
 ## Description
 
-Refaire ses papiers d'identité est devenu une tannée. Les créneaux sont rares et s'envolent vite. 
+Refaire ses **papiers d'identité** est devenu une tannée. Les créneaux sont rares et s'envolent vite. 
 Reprenez le contrôle et devenez la meilleure version de vous-même grâce à cet outil.
 
-Ce script est automatisé et permet de prendre rendez-vous en mairie **parisienne**, (quasi) automatiquement, pendant que vous faites autre chose. 
+Ce script permet de prendre rendez-vous en mairie **parisienne**, quasi-automatiquement, pour renouveller ou créer une carte d'identité ou un passeport, pendant que vous faites autre chose.
 
 Rentrez les données demandées au lancement du script. Laissez la page qui s'ouvre tourner en tâche de fond. Vous recevez une notification sur votre ordinateur lorsque le créneau est trouvé. Rentrez le captcha. 
 Vous avez un rendez-vous 🤝
@@ -22,10 +22,10 @@ Fonctionne sur **Linux** 🐧 & **MacOS** 🍏
 Lancez le script `./install_script.sh`
 
 #### 💪 ...ou Installation Manuelle
- * installez google Chrome si celui-ci n'est pas installé.
+ * installez **google Chrome** si celui-ci n'est pas installé.
  * installez **Python3** et le gestionnaire de paquet **pip** ou **pip3**.
- * installez les bibliothèques nécessaires aux scripts : `pip3 install notify-py selenium`
-* utilisez votre gestionnaire de paquets (`brew` sur MacOS, `apt`, `pkg`, `pacman`, etc..) pour installer chromium-chomedriver : `sudo apt install chromium-chromedriver` ou `brew install chromedriver`
+ * installez les **bibliothèques** nécessaires aux scripts : `pip3 install notify-py selenium`
+* utilisez votre gestionnaire de paquets (`brew` sur MacOS, `apt`, `pkg`, `pacman`, etc..) pour installer **chomedriver** : `sudo apt install chromium-chromedriver` ou `brew install chromedriver`
 * Let's Go !
 
 ## Usage
@@ -35,7 +35,7 @@ Lancez le script `./install_script.sh`
 exemple : 
 `python3 ./RDVMairiedeParis.py 75017 28/03/2022 18:15`
 
-⚠️  Plus vous rajoutez d'arguments, moins vous avez de chance de trouver un créneau. Restez flexibles.
+⚠️  Plus vous rajoutez d'**arguments**, moins vous aurez de chance de trouver un créneau. Restez flexibles.
 
 ##### I. pas d'arguments
 
