@@ -18,10 +18,10 @@ Fonctionne sur **Linux** 🐧 & **MacOS** 🍏
 
 ## Installation
 
-##### * Installation Automatique
+#### 🚀 Installation Automatique
 Lancez le script `./install_script.sh`
 
-##### * ...ou Installation Manuelle
+#### 💪 ...ou Installation Manuelle
  * installez google Chrome si celui-ci n'est pas installé.
  * installez **Python3** et le gestionnaire de paquet **pip** ou **pip3**.
  * installez les bibliothèques nécessaires aux scripts : `pip3 install notify-py selenium`
