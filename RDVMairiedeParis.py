@@ -228,21 +228,26 @@ def bookSlot(url,refresh=True):
 			return 1
 	return
 
-def quarterFix(minutes):
+def quarterFix(startHour, minutes):
 	if (minutes % 15 == 0):
-		return minutes
+		return startHour, minutes
 	else:
 		quarts = []
 		idx = 0
-		while idx != 60:
+		while idx != 75:
 			quarts.append(idx)
 			idx += 15
 		shortest_span = 60
 		for elem in quarts:
 			dist = abs(minutes - elem)
 			if dist < shortest_span:
-				shortest_span = dist
-		return shortest_span
+				if shortest_span != 60:
+					shortest_span = elem
+				else:
+					shortest_span = 0
+					if startHour != 19:
+						startHour += 1
+		return startHour, shortest_span
 
 
 def bookWantedHour(args):
@@ -252,8 +257,9 @@ def bookWantedHour(args):
 	main_url += date_of_rdv
 	trailer_url = "&modif_date=false&anchor=step3"
 	while True:
-		startHour = int(args[2][0])
-		startMins = quarterFix(int(args[2][1]))
+		ret = quarterFix(int(args[2][0]), int(args[2][1]))
+		startHour = ret[0]
+		startMins = ret[1]
 		Hour = startHour
 		Mins = startMins
 		for i in range(4):
