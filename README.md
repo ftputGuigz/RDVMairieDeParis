@@ -1,4 +1,7 @@
-
+<p align="center">
+<img src="./medias/Mairie.gif" width="800" >
+</p>
+  
 # RDVMairieDeParis 
 
 ## ante-scriptum 🇬🇧 -> 🇫🇷
@@ -62,4 +65,3 @@ Le script cherche dans la mairie demandée, au jour demandé jusqu'à ce qu'un c
 
 Le script cherche dans la mairie demandée, au jour demandé, dans l'heure spécifiée jusqu'à ce qu'un créneau se libère.
 
-![](./medias/Mairie.gif)
