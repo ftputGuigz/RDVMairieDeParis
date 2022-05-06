@@ -1,5 +1,6 @@
 from concurrent.futures import thread
 from genericpath import exists
+from lib2to3.pgen2 import driver
 from pickle import FALSE
 from posixpath import split
 from queue import Empty
@@ -12,7 +13,9 @@ import time
 import sys
 from signal import signal, SIGINT
 from notifypy import Notify
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -98,8 +101,11 @@ def parseArgs(argc, args):
 			if elem[:3] != "750":
 				print("La syntaxe est du type : <750XX>, XX est votre numero d'arrondissement. Exemple : '75019' ou '75001'\nEssayez encore.")
 				return None
-			if int(elem[3:]) < 1 or int(elem[3:]) > 20:
-				print("Le numéro d'arrondissement doit être compris entre 1 et 20.\nEssayez encore.")
+			if elem == "75000" and argc < 2:
+				print("Ajoutez une date pour le mode multi-mairie.")
+				return None
+			if int(elem[3:]) < 0 or int(elem[3:]) > 20:
+				print("Le numéro d'arrondissement doit être compris entre 0 et 20.\nEssayez encore.")
 				return None
 			else:
 				new_list.append(int(elem[3:]))
@@ -279,7 +285,7 @@ def bookWantedHour(args):
 		
 
 
-def	bookWantedDay(args):
+def	bookWantedDay(args, loop=True):
 	""" This function find a Mairie and a day and iter through all hour of the day until an open slot is found """
 	
 	## FORMAT == https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointment&view=getViewAppointmentCalendar&id_form=35&starting_date_time=2022-03-22T09:00&modif_date=false&anchor=step3 ##
@@ -287,7 +293,8 @@ def	bookWantedDay(args):
 	date_of_rdv = "&starting_date_time=" + args[1][2] + '-' + args[1][1] + '-' + args[1][0]
 	main_url += date_of_rdv
 	trailer_url = "&modif_date=false&anchor=step3"
-	while True:
+	end = True;
+	while end:
 		Hour = 8
 		while Hour != 20:
 			if Hour == 8:
@@ -298,12 +305,25 @@ def	bookWantedDay(args):
 				hour_url = 'T' + (str(Hour)).rjust(2, '0') + ':' + str(Mins).rjust(2, '0')
 				tmp_url = main_url + hour_url + trailer_url
 				if bookSlot(tmp_url, False):
-					return
+					return True
 				Mins += 15
 				if Hour == 19 and Mins == 15:
 					break
 			Hour += 1
-	return
+		if loop is False:
+			end = False
+	return False
+
+def loopMairieonDay(args):
+	while True:
+		args[0] = 1
+		while (args[0] != 20):
+			if bookWantedDay(args, loop=False):
+				return
+			if (args[0] == 2):
+				args[0] += 3
+			else:
+				args[0] += 1
 
 def getInput():
 	""" This function request user input for form completion and store it in a 
@@ -340,6 +360,7 @@ def getInput():
 
 def sigint_handler(sig, frame):
 	print(f"{YELLOW}Fin du Programme. A bientot en Mairie !{RESET}")
+	driver.quit()
 	exit(0)
 
 if __name__ == "__main__":
@@ -359,11 +380,14 @@ if __name__ == "__main__":
 		ARGC == 2 ---> program look for specified Mairie at specified day, until it finds a slot looping through all hours
 		ARGS == 3 ---> program look for specified Mairie at specified day, at specified time -+30 min, until it finds a slot
 	""" 
-	browser = webdriver.Chrome(options=chrome_options)
+	service = ChromeService(executable_path=ChromeDriverManager().install())
+	browser = webdriver.Chrome(service=service, options=chrome_options)
 	if argc == 0:
 		scanMairies()
-	elif argc == 1:	
+	elif argc == 1:
 		bookAnySlot(args[0])
+	elif argc == 2 and args[0] == 0:
+		loopMairieonDay(args)
 	elif argc == 2:
 		bookWantedDay(args)
 	else:
