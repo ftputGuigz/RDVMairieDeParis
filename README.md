@@ -27,7 +27,7 @@ Lancez le script `./install_script.sh`
 #### 💪 ...ou Installation Manuelle
  * installez **google Chrome** si celui-ci n'est pas installé.
  * installez **Python3** et le gestionnaire de paquet **pip** ou **pip3**.
- * installez les **bibliothèques** nécessaires aux scripts : `pip3 install notify-py selenium`
+ * installez les **bibliothèques** nécessaires au script : `pip3 install notify-py selenium`
 * utilisez votre gestionnaire de paquets (`brew` sur MacOS, `apt`, `pkg`, `pacman`, etc..) pour installer **chomedriver** : `sudo apt install chromium-chromedriver` ou `brew install chromedriver`
 * Let's Go !
 
