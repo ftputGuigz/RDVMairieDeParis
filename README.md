@@ -17,7 +17,7 @@ Ce script permet de prendre rendez-vous en mairie **parisienne**, quasi-automati
 Rentrez les données demandées au lancement du script. Laissez la page qui s'ouvre tourner en tâche de fond. Vous recevez une notification sur votre ordinateur lorsque le créneau est trouvé. Rentrez le captcha. 
 Vous avez un rendez-vous 🤝
 
-Fonctionne sur **Linux** 🐧 & **MacOS** 🍏 & **Windows** :x:
+Fonctionne sur **Linux** 🐧 & **MacOS** 🍏 & **Windows** 🪟
 
 ## Installation
 
