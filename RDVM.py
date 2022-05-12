@@ -4,6 +4,7 @@ from lib2to3.pgen2 import driver
 from pickle import FALSE
 from posixpath import split
 from queue import Empty
+from threading import local
 from tkinter import W
 from urllib import request
 from webbrowser import BaseBrowser
@@ -360,7 +361,8 @@ def getInput():
 
 def sigint_handler(sig, frame):
 	print(f"{YELLOW}Fin du Programme. A bientot en Mairie !{RESET}")
-	driver.quit()
+	if "browser" in locals():
+		browser.quit()
 	exit(0)
 
 if __name__ == "__main__":
