@@ -187,6 +187,13 @@ def fillForm(browser):
 	tmp = browser.find_element(By.XPATH, '//*[@id="form-validate"]/div/div[3]/div/div/button')
 	tmp.click()
 
+def switchoffHeadless(new_url):
+	browser.close()
+	chrome_options = Options()
+	chrome_options.add_experimental_option("detach", True)
+	new_browser = webdriver.Chrome(service=service, options=chrome_options)
+	new_browser.get(new_url)
+	return new_browser
 
 def bookAnySlot(arrond, refresh=True):
 	""" This function books any slot for a given Mairie, 
@@ -206,8 +213,8 @@ def bookAnySlot(arrond, refresh=True):
 			browser.refresh()
 		else:
 			content = browser.find_element(by=By.CSS_SELECTOR, value="a[class='fc-day-grid-event fc-h-event fc-event fc-start fc-end ']")
-			browser.get(content.get_attribute("href"))
-			fillForm(browser)
+			new_browser = switchoffHeadless(content.get_attribute("href"))
+			fillForm(new_browser)
 			notifyMe()
 			return 1
 
@@ -383,6 +390,8 @@ if __name__ == "__main__":
 		ARGS == 3 ---> program look for specified Mairie at specified day, at specified time -+30 min, until it finds a slot
 	""" 
 	service = ChromeService(executable_path=ChromeDriverManager().install())
+	chrome_options = Options()
+	chrome_options.add_argument("--headless")
 	browser = webdriver.Chrome(service=service, options=chrome_options)
 	if argc == 0:
 		scanMairies()
