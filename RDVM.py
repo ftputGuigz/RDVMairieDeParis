@@ -1,4 +1,5 @@
 from concurrent.futures import thread
+import argparse
 from genericpath import exists
 from lib2to3.pgen2 import driver
 from pickle import FALSE
@@ -27,6 +28,7 @@ from selenium.webdriver.chrome.options import Options
 on the website, and give back control to the user for CAPTCHA INPUT  """
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
+
 
 BLUE= "\u001b[34;1m"
 RESET= "\u001b[0m"
