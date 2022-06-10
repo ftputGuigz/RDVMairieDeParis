@@ -17,7 +17,7 @@ Ce script permet de prendre rendez-vous en mairie **parisienne**, quasi-automati
 Rentrez les données demandées au lancement du script. Laissez la page qui s'ouvre tourner en tâche de fond. Vous recevez une notification sur votre ordinateur lorsque le créneau est trouvé. Rentrez le captcha. 
 Vous avez un rendez-vous 🤝
 
-Fonctionne sur **Linux** 🐧 & **MacOS** 🍏
+Fonctionne sur **Linux** 🐧 & **MacOS** 🍏 & **Windows** 🪟
 
 ## Installation
 
@@ -30,6 +30,10 @@ Lancez le script `./install_script.sh`
  * installez les **bibliothèques** nécessaires au script : `pip3 install notify-py selenium`
 * utilisez votre gestionnaire de paquets (`brew` sur MacOS, `apt`, `pkg`, `pacman`, etc..) pour installer **chomedriver** : `sudo apt install chromium-chromedriver` ou `brew install chromedriver`
 * Let's Go !
+
+#### :hatched_chick: Compatibilité avec environnement Windows
+Le fonctionnement de `selenium` sur Windows nécessite de télécharger **chromedriver** sous forme d'exécutable (voir : https://chromedriver.chromium.org/downloads).
+L'exécutable est placé dans le même répertoire que le script `./RDVMairiedeParis.py`, ou est déclaré dans le PATH (voir : https://docs.microsoft.com/fr-fr/windows/deployment/usmt/usmt-recognized-environment-variables).
 
 ## Usage
 
