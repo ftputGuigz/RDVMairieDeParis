@@ -1,9 +1,3 @@
-# MAJ - IMPORTANT ⚠️ 
-Suite à d'importantes modifications sur le site teleservices.paris.fr, ce script ne fonctionne plus pour deux raisons : 
-1) les requêtes HTTP provenant d'une même IP sont bloquées au bout d'un certain nombre de requêtes. Une **rotation d'I.P** est à mettre en place
-2) l'utilisation d'un compte + captcha contraignent la connexion au site. 
-Je manque de temps pour mettre en place ces solutions. N'hésitez pas !
-
 <p align="center">
 <img src="./medias/Mairie.gif" width="800" >
 </p>
@@ -12,6 +6,12 @@ Je manque de temps pour mettre en place ces solutions. N'hésitez pas !
 
 ## ante-scriptum 🇬🇧 -> 🇫🇷
 This script was made to facilitate slot reservation on https://teleservices.paris.fr/. This is a french website used by french users. Therefore, this README will be in french
+
+# MAJ - IMPORTANT ⚠️ 
+Suite à d'importantes modifications sur le site teleservices.paris.fr, ce script ne fonctionne plus pour deux raisons : 
+1) les requêtes HTTP provenant d'une même IP sont bloquées au bout d'un certain nombre de requêtes. Une **rotation d'I.P** est à mettre en place
+2) l'utilisation d'un compte + captcha contraignent la connexion au site. 
+Je manque de temps pour mettre en place ces solutions. N'hésitez pas !
 
 ## Description
 
